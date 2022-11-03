@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+  django:
+    platform: linux/x86_64
+    container_name: template
+    build: .
+    volumes:
+      - .:/code
+    tty: true
+    ports:
+      - 127.0.0.1:8000:8000
+    depends_on:
+      - db
